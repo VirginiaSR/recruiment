@@ -27,6 +27,9 @@
 Player::Player(QObject *parent)
     : QObject(parent)
 {
+	InfoVideo timer;
+	timer.setDuration("00:00:00.000");
+	timer.setPosition("00:00:00.000");
 }
 
 void Player::setVideoSink(const QGst::ElementPtr & sink)
@@ -38,6 +41,7 @@ void Player::play()
 {
     if (m_pipeline) {
         m_pipeline->setState(QGst::StatePlaying);
+	timer.setPosition(&m_pipeline);
     }
 }
 
@@ -45,6 +49,7 @@ void Player::stop()
 {
     if (m_pipeline) {
         m_pipeline->setState(QGst::StateNull);
+	timer.getPosition();
     }
 }
 
@@ -56,6 +61,7 @@ void Player::open()
 
     if (!fileName.isEmpty()) {
         openFile(fileName);
+	timer.setDuration(&m_pipeline);
     }
 }
 
